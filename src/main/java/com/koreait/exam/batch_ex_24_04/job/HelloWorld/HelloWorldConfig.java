@@ -33,7 +33,7 @@ public class HelloWorldConfig {
     @Bean
     public Tasklet helloWorldTasklet() {
         return (stepContribution, chunkContext) -> {
-            System.out.println("헬로월드!!!");
+            System.out.println("헬로월드헬로월드!!!");
             return RepeatStatus.FINISHED;
         };
     }
