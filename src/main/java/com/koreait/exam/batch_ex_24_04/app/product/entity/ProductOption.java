@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ public class ProductOption extends BaseEntity {
     private String size;
     private String displayColor;
     private String displaySize;
+    private int salePrice;
     private int price;
     private int wholesalePrice;
 
