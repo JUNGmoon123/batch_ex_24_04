@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 @Getter
@@ -18,7 +19,12 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
-public class OrderItem extends BaseEntity {
+public class RebateOrderItem extends BaseEntity {
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private OrderItem orderItem;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     private Order order;
@@ -39,7 +45,22 @@ public class OrderItem extends BaseEntity {
     private boolean isPaid;  // 결제 여부
 
 
-    public OrderItem(ProductOption productOption, int quantity) {
+    public RebateOrderItem(OrderItem orderItem) {
+        this.orderItem = orderItem;
+        order = orderItem.getOrder();
+        productOption = orderItem.getProductOption();
+        quantity = orderItem.getQuantity();
+        price = orderItem.getPrice();
+        salePrice = orderItem.getSalePrice();
+        wholesalePrice = orderItem.getWholesalePrice();
+        pgFee = orderItem.getPgFee();
+        payPrice = orderItem.getPayPrice();
+        refundPrice = orderItem.getRefundPrice();
+        refundQuantity = orderItem.getRefundQuantity();
+        isPaid = orderItem.isPaid();
+    }
+
+    public RebateOrderItem(ProductOption productOption, int quantity) {
         this.productOption = productOption;
         this.quantity = quantity;
         this.price = productOption.getPrice();
